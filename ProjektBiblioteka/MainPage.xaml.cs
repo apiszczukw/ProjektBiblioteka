@@ -1,6 +1,8 @@
 ﻿using ProjektBiblioteka.Infrastructure;
+using ProjektBiblioteka.Model;
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
@@ -23,12 +25,24 @@ namespace ProjektBiblioteka
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        public ObservableCollection<Authors> Authors;
+        public ObservableCollection<Publishers> Publishers;
+
+
         public MainPage()
         {
             this.InitializeComponent();
 
 
             BibManager.SavaData();
+
+            BibManager.GetAuthors();
+            BibManager.GetPublishers();
+
+            Authors = new ObservableCollection<Authors>(BibManager.authors);
+            Publishers = new ObservableCollection<Publishers>(BibManager.publishers);
+
         }
     }
 }
