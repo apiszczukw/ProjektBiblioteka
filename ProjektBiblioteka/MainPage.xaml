@@ -9,10 +9,20 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <StackPanel Orientation="Vertical">
-        <my:DataGrid ItemsSource="{x:Bind Authors}" />
-        <my:DataGrid ItemsSource="{x:Bind Publishers}" />
+        <NavigationView OpenPaneLength="200" IsSettingsVisible="False" x:Name="NavView" ItemInvoked="NavView_ItemInvoked">
+
+            <Frame x:Name="mainFrame" Margin="20,0,0,0"></Frame>
             
-        </StackPanel>
+            <NavigationView.MenuItems>
+                <NavigationViewItem Content="Lista autorów" Icon="ContactPresence" Tag="authors"/>
+                <NavigationViewItem Content="Lista wydawnictw" Icon="Shop" Tag="publishers"/>
+
+
+
+            </NavigationView.MenuItems>
+            
+        </NavigationView>
+        
+        
     </Grid>
 </Page>

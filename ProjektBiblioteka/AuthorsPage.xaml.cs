@@ -16,33 +16,30 @@ using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 
-//Szablon elementu Pusta strona jest udokumentowany na stronie https://go.microsoft.com/fwlink/?LinkId=402352&clcid=0x415
+//Szablon elementu Pusta strona jest udokumentowany na stronie https://go.microsoft.com/fwlink/?LinkId=234238
 
 namespace ProjektBiblioteka
 {
     /// <summary>
     /// Pusta strona, która może być używana samodzielnie lub do której można nawigować wewnątrz ramki.
     /// </summary>
-    public sealed partial class MainPage : Page
+    public sealed partial class AuthorsPage : Page
     {
 
-        public MainPage()
+        public ObservableCollection<Authors> authors;
+
+        public AuthorsPage()
         {
             this.InitializeComponent();
 
-
-            //BibManager.SavaData();
-
-           
-
+            BibManager.GetAuthors();
+            authors = new ObservableCollection<Authors>(BibManager.authors);
         }
 
-        private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
+        private void DataGrid_RowEditEnded(object sender, Microsoft.Toolkit.Uwp.UI.Controls.DataGridRowEditEndedEventArgs e)
         {
-            if(args.InvokedItemContainer.Tag.ToString() == "authors" && mainFrame.CurrentSourcePageType != typeof(AuthorsPage))
-            {
-                mainFrame.Navigate(typeof(AuthorsPage));
-            }
+           // TODO 
+           // sprawdzenie stanu edycji i zapis danych
         }
     }
 }

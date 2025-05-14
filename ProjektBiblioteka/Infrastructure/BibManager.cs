@@ -29,16 +29,23 @@ namespace ProjektBiblioteka.Infrastructure
 
         public static void GetAuthors()
         {
-            var path = ApplicationData.Current.LocalFolder.Path;
-
-            authors = XmlHelper.DeserializeFromXml<List<Authors>>(Path.Combine(path, Files.AuthorsFile));
+            authors = XmlHelper.DeserializeFromXml<List<Authors>>(Files.AuthorsFilePath);
         }
 
         internal static void GetPublishers()
         {
-            var path = ApplicationData.Current.LocalFolder.Path;
 
-            publishers = XmlHelper.DeserializeFromXml<List<Publishers>>(Path.Combine(path, Files.PublishersFile));
+            publishers = XmlHelper.DeserializeFromXml<List<Publishers>>(Files.PublishersFilePath);
+        }
+
+        public static void SaveAuthors()
+        {
+            XmlHelper.SerializeToXml(authors, Files.AuthorsFilePath);
+        }
+
+        public static void SavePublishers()
+        {
+            XmlHelper.SerializeToXml(publishers, Files.PublishersFilePath);
         }
     }
 }
