@@ -1,4 +1,5 @@
-﻿using ProjektBiblioteka.Infrastructure;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using ProjektBiblioteka.Infrastructure;
 using ProjektBiblioteka.Model;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,44 @@ namespace ProjektBiblioteka
             BibManager.GetPublishers();
 
             publishers = new ObservableCollection<Publishers>(BibManager.publishers);
+        }
+
+        private void dataGrid_RowEditEnded(object sender, Microsoft.Toolkit.Uwp.UI.Controls.DataGridRowEditEndedEventArgs e)
+        {
+            if(e.EditAction == DataGridEditAction.Commit)
+            {
+                BibManager.publishers = dataGrid.ItemsSource.Cast<Publishers>().ToList();
+                BibManager.SavePublishers();
+            }
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var newPublisher = new Publishers()
+            {
+                Name = "",
+                Id = (publishers.Any() ? publishers.Max(x => x.Id) : 0) + 1,
+                Website = ""
+            };
+
+            publishers.Insert(0, newPublisher);
+
+            BibManager.publishers.Add(newPublisher);
+
+            BibManager.SavePublishers();
+        }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var indeks = dataGrid.SelectedIndex;
+
+            if (indeks == -1) return;
+
+            publishers.RemoveAt(indeks);
+
+            BibManager.publishers = publishers.ToList();
+
+            BibManager.SavePublishers();
         }
     }
 }

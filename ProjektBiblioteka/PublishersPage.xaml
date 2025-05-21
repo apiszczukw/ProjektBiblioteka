@@ -9,6 +9,9 @@
     Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
 
     <Grid>
-        <my:DataGrid ItemsSource="{x:Bind publishers}"/>
+        <my:DataGrid x:Name="dataGrid" ItemsSource="{x:Bind publishers}" RowEditEnded="dataGrid_RowEditEnded" Margin="15,50,0,0"/>
+        <Button x:Name="AddBtn" Click="AddBtn_Click" Margin="15,10,0,0" VerticalAlignment="Top">➕</Button>
+        <Button x:Name="DeleteBtn" Click="DeleteBtn_Click" Margin="65,10,0,0" VerticalAlignment="Top">🗑️</Button>
     </Grid>
+ 
 </Page>

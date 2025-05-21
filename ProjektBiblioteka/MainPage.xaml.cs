@@ -39,9 +39,13 @@ namespace ProjektBiblioteka
 
         private void NavView_ItemInvoked(NavigationView sender, NavigationViewItemInvokedEventArgs args)
         {
-            if(args.InvokedItemContainer.Tag.ToString() == "authors" && mainFrame.CurrentSourcePageType != typeof(AuthorsPage))
+            if (args.InvokedItemContainer.Tag.ToString() == "authors" && mainFrame.CurrentSourcePageType != typeof(AuthorsPage))
             {
                 mainFrame.Navigate(typeof(AuthorsPage));
+            }
+            if (args.InvokedItemContainer.Tag.ToString() == "publishers" && mainFrame.CurrentSourcePageType != typeof(PublishersPage))
+            {
+                mainFrame.Navigate(typeof(PublishersPage));
             }
         }
     }

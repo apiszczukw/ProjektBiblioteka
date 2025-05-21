@@ -1,4 +1,5 @@
-﻿using ProjektBiblioteka.Infrastructure;
+﻿using Microsoft.Toolkit.Uwp.UI.Controls;
+using ProjektBiblioteka.Infrastructure;
 using ProjektBiblioteka.Model;
 using System;
 using System.Collections.Generic;
@@ -40,6 +41,43 @@ namespace ProjektBiblioteka
         {
            // TODO 
            // sprawdzenie stanu edycji i zapis danych
+
+            if(e.EditAction == DataGridEditAction.Commit)
+            {
+                BibManager.authors = dataGrid.ItemsSource.Cast<Authors>().ToList();
+
+                BibManager.SaveAuthors();
+            }
+        }
+
+        private void AddBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var newAuthor = new Authors()
+            {
+                Name = "",
+                Surname = "",
+                YearOfBirth = 1900,
+                Id = (authors.Any() ? authors.Max(x => x.Id) : 0) + 1
+            };
+
+            authors.Insert(0, newAuthor);
+
+            BibManager.authors.Add(newAuthor);
+
+            BibManager.SaveAuthors();
+        }
+
+        private void DeleteBtn_Click(object sender, RoutedEventArgs e)
+        {
+            var indeks = dataGrid.SelectedIndex;
+
+            if (indeks == -1) return;
+
+            authors.RemoveAt(indeks);
+
+            BibManager.authors = authors.ToList();
+
+            BibManager.SaveAuthors();
         }
     }
 }
